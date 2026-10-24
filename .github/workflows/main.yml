@@ -19,10 +19,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
 
       - name: Install dependencies
-      run: npm install
+        run: npm install
 
       - name: Check Android project
         run: |
@@ -41,3 +40,5 @@ jobs:
           name: Arab-Chat-APK
           path: android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
+
+
