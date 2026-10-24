@@ -148,14 +148,75 @@ h2{margin:18px 0 8px;font-size:16px}
         d["matches/" + u] = { chat: id }; delete d[k]; ch = true;
       }
       const m = k.match(/^(chats\/[^/]+)\/msgs\/([^/]+)$/);
-      if (m && d[k].from !== BOT && (d[m[1]].members || []).includes(BOT) && !d["botdone/" + m[2]] && !done.has(m[2])) {
-        done.add(m[2]); d["botdone/" + m[2]] = { t: 1 }; ch = true;
-        const R = ["أهلاً وسهلاً! 😊", "من أي بلد أنت؟", "حلو، وش تحب تسوي في وقت فراغك؟", "ههه صحيح", "تشرفت بمعرفتك!"];
-        setTimeout(() => { const x = load(), ts = Date.now(), t = R[Math.floor(Math.random() * R.length)];
-          x[m[1] + "/msgs/" + ts + "_bot"] = { from: BOT, text: t, ts }; if (x[m[1]]) { x[m[1]].last = t; x[m[1]].ts = ts; } save(x); }, 1200);
+            if (
+        m &&
+        d[k].from !== BOT &&
+        d[m[1]] &&
+        (d[m[1]].members || []).includes(BOT) &&
+        !d["botdone/" + m[2]] &&
+        !done.has(m[2])
+      ) {
+        done.add(m[2]);
+        d["botdone/" + m[2]] = { t: 1 };
+        ch = true;
+
+        const chatPath = m[1];
+
+        const messages = Object.entries(d)
+          .filter(([path, value]) =>
+            path.startsWith(chatPath + "/msgs/") &&
+            value &&
+            typeof value.text === "string"
+          )
+          .sort((a, b) => (a[1].ts || 0) - (b[1].ts || 0))
+          .slice(-12)
+          .map(([, value]) => ({
+            role: value.from === BOT ? "assistant" : "user",
+            text: String(value.text).slice(0, 2000)
+          }));
+
+        setTimeout(async () => {
+          try {
+            const reply = await askArabChatAI("sara", messages);
+            const x = load();
+            const ts = Date.now();
+
+            x[chatPath + "/msgs/" + ts + "_bot"] = {
+              from: BOT,
+              text: reply,
+              ts
+            };
+
+            if (x[chatPath]) {
+              x[chatPath].last = reply;
+              x[chatPath].ts = ts;
+            }
+
+            save(x);
+          } catch (e) {
+            console.error("AI reply error:", e);
+
+            const x = load();
+            const ts = Date.now();
+            const reply = "عذرًا، لم أتمكن من الرد الآن. حاول مرة أخرى.";
+
+            x[chatPath + "/msgs/" + ts + "_bot"] = {
+              from: BOT,
+              text: reply,
+              ts
+            };
+
+            if (x[chatPath]) {
+              x[chatPath].last = reply;
+              x[chatPath].ts = ts;
+            }
+
+            save(x);
+          }
+        }, 100);
       }
     }
-    if (ch) save(d);
+    if (ch) save(d)
   }, 1000);
 })();
 
