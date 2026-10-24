@@ -303,6 +303,32 @@ function AUTH(start){const A=id=>document.getElementById(id),okm=e=>/^\S+@\S+\.\
     if(p.length<6)return err("aFerr","aFp","كلمة المرور الجديدة 6 أحرف على الأقل");us[e].p=hs(p);SAU(us);show("al");err("aLerr",null,"تم تغيير كلمة المرور، سجّل الدخول الآن",true)};
   A("auth").querySelectorAll("input").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter")i.closest("section").querySelector(".ab.p").click()}))}
 AUTH(init);
+const SUPABASE_URL = "https://qobaaxckvybtxnfvgtxd.supabase.co";
+
+const SUPABASE_ANON_KEY = "ضع_المفتاح_العام_هنا";
+
+async function askArabChatAI(character, messages) {
+  const response = await fetch(
+    `${SUPABASE_URL}/functions/v1/arab-chat-ai`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`
+      },
+      body: JSON.stringify({ character, messages })
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.error || "تعذر الاتصال بالذكاء الاصطناعي");
+  }
+
+  return data.reply;
+}  
 </script>
 </body>
 </html>
