@@ -23,10 +23,29 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Check Android project
+      - name: Build web files
+        run: npm run build
+
+      - name: Create Capacitor config if missing
         run: |
-          test -d android
-          test -f android/gradlew
+          if [ ! -f capacitor.config.json ] && [ ! -f capacitor.config.ts ] && [ ! -f capacitor.config.js ]; then
+            cat > capacitor.config.json <<'EOF'
+          {
+            "appId": "com.arabchat.app",
+            "appName": "Arab Chat",
+            "webDir": "www"
+          }
+          EOF
+          fi
+
+      - name: Create Android project if missing
+        run: |
+          if [ ! -d android ]; then
+            npx cap add android
+          fi
+
+      - name: Sync Android project
+        run: npx cap sync android
 
       - name: Build APK
         run: |
@@ -40,5 +59,3 @@ jobs:
           name: Arab-Chat-APK
           path: android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
-
-
