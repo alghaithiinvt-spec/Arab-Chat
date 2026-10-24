@@ -368,7 +368,46 @@ const SUPABASE_URL = "https://qobaaxckvybtxnfvgtxd.supabase.co";
 
 const SUPABASE_ANON_KEY = "sb_publishable_dy_3so5jzX6A09e0jBRQRQ_K0GoQymZ";
 
+
 async function askArabChatAI(character, messages) {
+  const response = await fetch(
+    `${SUPABASE_URL}/functions/v1/arab-chat-ai`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({ character, messages })
+    }
+  );
+
+  const text = await response.text();
+  let data;
+
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(
+      `رد غير مفهوم من Supabase (HTTP ${response.status}): ${text.slice(0, 250)}`
+    );
+  }
+
+  if (!response.ok) {
+    throw new Error(
+      `Supabase HTTP ${response.status}: ${
+        data.error || data.message || text.slice(0, 250)
+      }`
+    );
+  }
+
+  if (typeof data.reply !== "string" || !data.reply.trim()) {
+    throw new Error("وصل رد من الدالة، لكن حقل reply فارغ أو غير موجود.");
+  }
+
+  return data.reply;
+}
+
   const response = await fetch(
     `${SUPABASE_URL}/functions/v1/arab-chat-ai`,
     {
