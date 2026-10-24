@@ -367,8 +367,6 @@ AUTH(init);
 const SUPABASE_URL = "https://qobaaxckvybtxnfvgtxd.supabase.co";
 
 const SUPABASE_ANON_KEY = "sb_publishable_dy_3so5jzX6A09e0jBRQRQ_K0GoQymZ";
-
-
 async function askArabChatAI(character, messages) {
 const response = await fetch(
 "${SUPABASE_URL}/functions/v1/arab-chat-ai",
@@ -404,6 +402,7 @@ throw new Error("وصل رد من الدالة، لكن حقل reply فارغ أ
 }
 
 return data.reply;
+}
 }
 }  
 </script>
