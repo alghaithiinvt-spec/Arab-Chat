@@ -1,5 +1,11 @@
+
 {
   "appId": "com.arabchat.app",
   "appName": "Arab Chat",
-  "webDir": "www"
+  "webDir": "www",
+  "plugins": {
+    "App": {
+      "launchUrl": "com.arabchat.app://login-callback"
+    }
+  }
 }
