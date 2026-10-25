@@ -1,1 +1,15 @@
-bash generate-icons.sh
+- name: Ensure Android project is complete
+  run: |
+    if [ ! -f android/gradlew ]; then
+      rm -rf android
+      npx cap add android
+    fi
+
+- name: Sync Android project
+  run: npx cap sync android
+
+- name: Build APK
+  run: |
+    cd android
+    chmod +x gradlew
+    ./gradlew assembleDebug
