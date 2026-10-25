@@ -36,6 +36,9 @@ jobs:
         run: |
           [ -d android ] || npx cap add android
 
+      - name: Generate app icons
+        run: npx @capacitor/assets generate --android --iconBackgroundColor '#0a1c1a' --iconBackgroundColorDark '#0a1c1a'
+
       - name: Allow camera and microphone
         run: |
           python3 - <<'PY'
