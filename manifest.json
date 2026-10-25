@@ -1,12 +1,17 @@
 {
-  "name": "Arab Chat",
-  "short_name": "ArabChat",
-  "description": "دردشة عربية عشوائية",
-  "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
-  ],
-  "background_color": "#07110d",
-  "theme_color": "#7cf04f",
-  "display": "standalone"
+  "name": "arab-chat-android",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arab Chat Android app built with Capacitor",
+  "scripts": {
+    "build": "mkdir -p www && cp -f index.html www/index.html && cp -f manifest.json www/manifest.json && if [ -f icon-192.png ]; then cp -f icon-192.png www/; fi && if [ -f icon-512.png ]; then cp -f icon-512.png www/; fi && if [ -f icon.png ] && [ ! -f www/icon-192.png ]; then cp -f icon.png www/icon-192.png; fi && if [ -f icon.png ] && [ ! -f www/icon-512.png ]; then cp -f icon.png www/icon-512.png; fi",
+    "android:sync": "npx cap sync android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/core": "^6.2.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0"
+  }
 }
