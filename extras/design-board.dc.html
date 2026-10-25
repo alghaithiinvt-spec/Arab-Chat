@@ -1,1 +1,70 @@
-
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Arab Chat</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+body{margin:0}
+.ph{width:300px;height:600px;box-sizing:border-box;border:7px solid #22362d;border-radius:44px;background:#0b1612;overflow:hidden;box-shadow:0 30px 60px #000a}
+.sc{direction:rtl;height:100%;display:flex;flex-direction:column;position:relative;color:#EAF4EE;font-family:Tajawal,sans-serif;font-size:13px}
+.nt{width:90px;height:22px;background:#07110d;border-radius:0 0 14px 14px;align-self:center;flex:none}
+.hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;font-size:16px}
+.gr{flex:1;min-width:0}.mu{color:#8BA397;font-size:11.5px}
+.mu u{display:inline-block;width:7px;height:7px;border-radius:50%;background:#7CF04F}
+.ib{background:#16281f;color:#7CF04F;border:1px solid #2a4a38;border-radius:12px;padding:6px 12px;font:inherit;font-size:12px}
+.ms{flex:1;display:flex;flex-direction:column;gap:9px;padding:8px 14px;overflow:hidden}
+.m{max-width:78%;padding:9px 13px;border-radius:16px;line-height:1.5}
+.m.i{background:#16281f;align-self:flex-start;border-top-left-radius:4px;align-self:flex-end}
+.m.o{background:#7CF04F;color:#06210f;align-self:flex-start;border-top-right-radius:4px}
+.inp{display:flex;justify-content:space-between;align-items:center;margin:8px 12px;padding:6px 6px 6px 14px;background:#12201a;border:1px solid #22362d;border-radius:22px}
+.sd{width:32px;height:32px;border-radius:50%;border:0;background:#7CF04F;color:#06210f;font-weight:700;font-size:16px}
+.tb{display:flex;border-top:1px solid #1c2d25;padding:8px 0 12px;margin-top:auto}
+.tb span{flex:1;text-align:center;color:#8BA397;font-size:11px}
+.tb span i{display:block;width:18px;height:4px;border-radius:2px;background:#22362d;margin:0 auto 5px}
+.tb span.on{color:#7CF04F;font-weight:700}.tb span.on i{background:#7CF04F;width:26px}
+.seg{display:flex;gap:6px;margin:0 14px 8px;background:#12201a;padding:4px;border-radius:14px}
+.seg span{flex:1;text-align:center;padding:7px;border-radius:10px;color:#8BA397}
+.seg span.on{background:#7CF04F;color:#06210f;font-weight:700}
+.row{display:flex;gap:10px;align-items:center;padding:9px 14px}
+.rt{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.av{border-radius:50%;display:grid;place-items:center;color:#06210f;font-weight:800;font-size:16px;flex:none}
+.bd{background:#7CF04F;color:#06210f;border-radius:10px;min-width:18px;height:18px;display:grid;place-items:center;font-size:11px;font-weight:800}
+.pf{display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 0 10px}.nm{font-size:18px}
+.st{display:flex;justify-content:space-around;text-align:center;margin:0 14px 12px;padding:10px 0;background:#12201a;border-radius:16px}
+.st div{display:flex;flex-direction:column}.st b{font-size:17px}
+.fb{background:#7CF04F;color:#06210f;border:0;border-radius:12px;padding:6px 12px;font:inherit;font-size:12px;font-weight:700}
+.rd{position:relative;height:200px;margin:14px 0 6px}
+.rd div{position:absolute;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}
+.r1{width:190px;height:190px;border:1px solid #1f3a2c}.r2{width:140px;height:140px;border:1px solid #2c5a3d;background:#0f2118}
+.r3{width:84px;height:84px;background:linear-gradient(135deg,#C6FF5A,#2BB673);display:grid;place-items:center;font-size:34px;box-shadow:0 0 40px #7CF04F66}
+.ct{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:16px}
+.chips{display:flex;justify-content:center;gap:8px;margin:14px 0}.chips span{background:#12201a;border:1px solid #22362d;border-radius:14px;padding:6px 12px;font-size:12px}
+.go{margin:0 24px;padding:14px;border:0;border-radius:16px;background:#7CF04F;color:#06210f;font:inherit;font-size:15px;font-weight:800}
+.vp{position:relative;flex:1;margin:4px 14px 10px;border-radius:24px;background:linear-gradient(160deg,#1c4a35,#0d1f17);display:grid;place-items:center;overflow:hidden}
+.vl{position:absolute;bottom:12px;right:12px;left:12px;display:flex;flex-direction:column;background:#0b1612cc;padding:8px 12px;border-radius:14px}
+.vs{position:absolute;top:12px;left:12px;width:78px;height:104px;border-radius:14px;background:linear-gradient(160deg,#3a3f8f,#161a3a);border:2px solid #7CF04F;display:grid;place-items:center;font-size:12px}
+.ctl{display:flex;justify-content:center;gap:18px;align-items:center;margin-bottom:10px}
+.cb{width:54px;height:54px;border-radius:50%;border:1px solid #2a4a38;background:#16281f;color:#EAF4EE;font:inherit;font-size:12px}
+.cb.g{background:#7CF04F;color:#06210f;width:66px;height:66px;font-weight:800;border:0;font-size:14px}
+.cp{width:300px;text-align:center}.cp b{display:block;color:#7CF04F;font-size:20px;margin-bottom:4px}.cp span{color:#9DB3A6;font-size:14px}
+</style>
+</helmet>
+<div dir="rtl" style="width:2000px;height:980px;box-sizing:border-box;padding:56px 100px;background:radial-gradient(circle at 15% 0%,#12402b,#07110d 55%);font-family:Tajawal,sans-serif;display:flex;flex-direction:column;align-items:center;gap:36px;position:relative;overflow:hidden">
+<div style="display:flex;align-items:center;gap:24px"><div style="width:84px;height:84px;border-radius:24px;background:linear-gradient(135deg,#C6FF5A,#2BB673);display:grid;place-items:center;font-size:44px">💬</div><div><div style="font-size:60px;font-weight:800;color:#fff;line-height:1.1;direction:ltr">Arab <span style="color:#7CF04F">Chat</span></div><div style="font-size:22px;color:#B7CBBF">تواصل .. تعرّف .. أصدقاء جدد</div></div></div>
+<div style="display:flex;gap:40px;direction:ltr"><div class="ph"><div class="sc"><div class="nt"></div><div class="hd"><div class="gr"><b>دردشة عشوائية</b><div class="mu"><u></u> متصل الآن</div></div><button class="ib">التالي ›</button></div><div class="ms"><div class="m i">السلام عليكم، كيف حالك؟</div><div class="m o">وعليكم السلام! الحمد لله، من وين أنت؟</div><div class="m i">من اليمن 🇾🇪 وأنت؟</div><div class="m o">من السعودية، تشرفت بالتعرف عليك</div><div class="m i">الشرف لي، تحب نتابع بعض؟</div></div><div class="inp"><span class="mu">اكتب رسالتك…</span><button class="sd">↑</button></div><div class="tb"><span class="on"><i></i>عشوائي</span><span class=""><i></i>فيديو</span><span class=""><i></i>المحادثات</span><span class=""><i></i>حسابي</span></div></div></div><div class="ph"><div class="sc"><div class="nt"></div><div class="hd"><b>المحادثات</b></div><div class="seg"><span class="on">الكل</span><span>المفضلة</span></div><div class="row"><div class="av" style="width:40px;height:40px;background:linear-gradient(135deg,#6BC8FF,#6B7CFF)">أ</div><div class="gr"><div class="rt"><b>أحمد</b><span class="mu">10:24</span></div><div class="rt"><span class="mu">كيف حالك؟</span><div class="bd">2</div></div></div></div><div class="row"><div class="av" style="width:40px;height:40px;background:linear-gradient(135deg,#FFB86B,#F0647A)">س</div><div class="gr"><div class="rt"><b>سارة</b><span class="mu">10:20</span></div><div class="rt"><span class="mu">ممكن نكمل لاحقاً؟</span><div class="bd">1</div></div></div></div><div class="row"><div class="av" style="width:40px;height:40px;background:linear-gradient(135deg,#7CF04F,#2BB673)">م</div><div class="gr"><div class="rt"><b>محمد</b><span class="mu">09:45</span></div><div class="rt"><span class="mu">أرسل صورة</span></div></div></div><div class="row"><div class="av" style="width:40px;height:40px;background:linear-gradient(135deg,#D39BFF,#7C5CFF)">ل</div><div class="gr"><div class="rt"><b>ليلى</b><span class="mu">08:32</span></div><div class="rt"><span class="mu">تمام، شكراً لك</span></div></div></div><div class="row"><div class="av" style="width:40px;height:40px;background:linear-gradient(135deg,#FFE066,#FF9F43)">ي</div><div class="gr"><div class="rt"><b>يوسف</b><span class="mu">أمس</span></div><div class="rt"><span class="mu">السلام عليكم</span></div></div></div><div class="row"><div class="av" style="width:40px;height:40px;background:linear-gradient(135deg,#FFB86B,#F0647A)">ن</div><div class="gr"><div class="rt"><b>نور</b><span class="mu">أمس</span></div><div class="rt"><span class="mu">أهلاً وسهلاً</span></div></div></div><div class="tb"><span class=""><i></i>عشوائي</span><span class=""><i></i>فيديو</span><span class="on"><i></i>المحادثات</span><span class=""><i></i>حسابي</span></div></div></div><div class="ph"><div class="sc"><div class="nt"></div><div class="hd"><b>الملف الشخصي</b></div><div class="pf"><div class="av" style="width:84px;height:84px;background:linear-gradient(135deg,#7CF04F,#2BB673)">أ</div><b class="nm">أحمد</b><span class="mu">@ahmad_123</span></div><div class="st"><div><b>120</b><span class="mu">أتابع</span></div><div><b>56</b><span class="mu">متابعون</span></div><div><b>342</b><span class="mu">محادثة</span></div></div><div class="seg"><span class="on">المتابعون</span><span>أتابعهم</span></div><div class="row"><div class="av" style="width:36px;height:36px;background:linear-gradient(135deg,#FFB86B,#F0647A)">س</div><div class="gr"><b>سارة</b><div class="mu">@sara_22</div></div><button class="fb">متابعة</button></div><div class="row"><div class="av" style="width:36px;height:36px;background:linear-gradient(135deg,#7CF04F,#2BB673)">م</div><div class="gr"><b>محمد</b><div class="mu">@mohamed89</div></div><button class="fb">متابعة</button></div><div class="row"><div class="av" style="width:36px;height:36px;background:linear-gradient(135deg,#D39BFF,#7C5CFF)">ل</div><div class="gr"><b>ليلى</b><div class="mu">@laila_77</div></div><button class="fb">متابعة</button></div><div class="tb"><span class=""><i></i>عشوائي</span><span class=""><i></i>فيديو</span><span class=""><i></i>المحادثات</span><span class="on"><i></i>حسابي</span></div></div></div><div class="ph"><div class="sc"><div class="nt"></div><div class="hd"><b>ابدأ دردشة</b></div><div class="rd"><div class="r1"></div><div class="r2"></div><div class="r3">💬</div></div><div class="ct"><b>ابحث عن شخص جديد</b><span class="mu">سيتم ربطك بأول شخص متاح الآن</span></div><div class="chips"><span>🌍 الكل</span><span>العربية</span><span>18+</span></div><button class="go">ابدأ الدردشة</button><div class="tb"><span class="on"><i></i>عشوائي</span><span class=""><i></i>فيديو</span><span class=""><i></i>المحادثات</span><span class=""><i></i>حسابي</span></div></div><div class="ph"><div class="sc"><div class="nt"></div><div class="hd"><div class="gr"><b>فيديو عشوائي</b><div class="mu"><u></u> متصل الآن</div></div><button class="ib">فلتر</button></div><div class="vp"><div class="av" style="width:96px;height:96px;font-size:40px;background:linear-gradient(135deg,#FFB86B,#F0647A)">س</div><div class="vs">أنت</div><div class="vl"><b>سارة، 22</b><span class="mu">السعودية · عربي</span></div></div><div class="ctl"><button class="cb">كتم</button><button class="cb g">ابدأ</button><button class="cb">تخطي</button></div><div class="tb"><span class=""><i></i>عشوائي</span><span class="on"><i></i>فيديو</span><span class=""><i></i>المحادثات</span><span class=""><i></i>حسابي</span></div></div></div></div></div>
+<div style="display:flex;gap:40px;direction:ltr"><div class="cp"><b>دردشة عشوائية</b><span>تحدّث مع أشخاص من كل مكان</span></div><div class="cp"><b>قائمة المحادثات</b><span>كل محادثاتك في مكان واحد</span></div><div class="cp"><b>الملف الشخصي</b><span>تابع من تحب ونمِّ صداقاتك</span></div><div class="cp"><b>ابدأ بلمسة</b><span>اتصال فوري بشخص متاح</span></div><div class="cp"><b>فيديو عشوائي</b><span>تواصل مباشر بالصوت والصورة</span></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2000,"height":980}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

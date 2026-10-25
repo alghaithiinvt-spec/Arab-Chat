@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arab Chat — تسجيل الدخول</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg1:#e9f7ee;--bg2:#f6faf7;--tx:#16241c;--mut:#5b7266;--card:#fff;--bd:#cfe0d5;--pr:#1f9d4d;--prt:#fff;--lk:#17803c;--er:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#12402b;--bg2:#07110d;--tx:#eaf4ee;--mut:#9db3a6;--card:#12201a;--bd:#2a4a38;--pr:#7cf04f;--prt:#06210f;--lk:#7cf04f;--er:#ff8a7a}}
+:root[data-theme="dark"]{--bg1:#12402b;--bg2:#07110d;--tx:#eaf4ee;--mut:#9db3a6;--card:#12201a;--bd:#2a4a38;--pr:#7cf04f;--prt:#06210f;--lk:#7cf04f;--er:#ff8a7a}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:radial-gradient(circle at 20% 0%,var(--bg1),var(--bg2) 60%) fixed;color:var(--tx);font-family:Tajawal,system-ui,sans-serif;display:flex;justify-content:center;padding:24px 16px}
+.w{width:100%;max-width:400px;display:flex;flex-direction:column;gap:14px}
+.lg{display:flex;flex-direction:column;align-items:center;gap:8px;margin:16px 0 4px}
+h1{margin:0;font-size:34px;font-weight:800;direction:ltr;line-height:1.1}h1 span{color:var(--pr)}
+h2{margin:0;font-size:20px;text-align:center}
+.sub{text-align:center;color:var(--mut);font-size:15px;margin:0}
+.btn{height:52px;border-radius:16px;border:0;font:inherit;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;width:100%}
+.btn:disabled{opacity:.6;cursor:wait}
+.g{background:#fff;color:#1f2933;border:1px solid var(--bd)}
+.p{background:var(--pr);color:var(--prt)}
+.s{background:transparent;color:var(--lk);border:1.5px solid var(--pr)}
+.or{display:flex;align-items:center;gap:12px;color:var(--mut);font-size:14px}.or:before,.or:after{content:"";flex:1;height:1px;background:var(--bd)}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--mut)}
+.i{position:relative}
+input{width:100%;height:50px;border-radius:14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:0 16px;font:inherit;font-size:16px}
+input:focus{outline:2px solid var(--pr);outline-offset:1px}
+input.bad{border-color:var(--er)}
+.eye{position:absolute;inset-inline-end:6px;top:6px;height:38px;padding:0 10px;border:0;background:none;color:var(--lk);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.er{color:var(--er);font-size:13px;min-height:0}
+a,.lnk{color:var(--lk);font-weight:700;font-size:14px;background:none;border:0;font-family:inherit;cursor:pointer;padding:6px 0;text-decoration:none}
+.row{display:flex;justify-content:space-between}
+.ok{background:var(--card);border:1px solid var(--pr);border-radius:16px;padding:16px;text-align:center;line-height:1.7}
+[hidden]{display:none!important}
+.th{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));inset-inline-start:12px;font-size:12px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:12px;padding:6px 10px;font-family:inherit}
+</style>
+</head>
+<body>
+<button class="th" id="th" aria-label="تغيير المظهر">🌓</button>
+<main class="w">
+<div class="lg">
+<svg width="96" height="96" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="120" fill="#0d1f17" stroke="#2c5a3d" stroke-width="8"/><ellipse cx="328" cy="322" rx="101" ry="96" fill="#f1f4f2"/><path d="M370 392L408 432L342 414Z" fill="#f1f4f2" stroke="#f1f4f2" stroke-width="10" stroke-linejoin="round"/><g fill="#10181c"><circle cx="276" cy="336" r="15"/><circle cx="325" cy="336" r="15"/><circle cx="375" cy="336" r="15"/></g><g stroke="#0d1f17" stroke-width="9" stroke-linejoin="round"><path d="M100 252L96 330L156 300Z" fill="#7cf04f"/><ellipse cx="205" cy="203" rx="131" ry="117" fill="#9cf24f"/></g><path d="M102 255L99 322L150 298Z" fill="#8cf04f"/><g fill="#10181c"><circle cx="146" cy="205" r="17"/><circle cx="206" cy="205" r="17"/><circle cx="266" cy="205" r="17"/></g></svg>
+<h1>Arab <span>Chat</span></h1>
+</div>
+
+<!-- تسجيل الدخول -->
+<section id="login" class="w" style="gap:14px">
+<p class="sub">أهلاً بعودتك، سجّل الدخول للمتابعة</p>
+<button class="btn g" data-google><b style="color:#4285F4;font:800 22px Arial">G</b>المتابعة بحساب Google</button>
+<div class="or">أو</div>
+<label>البريد الإلكتروني<input id="le" type="email" placeholder="name@example.com" autocomplete="email"></label>
+<label>كلمة المرور<span class="i"><input id="lp" type="password" placeholder="••••••••" autocomplete="current-password"><button type="button" class="eye" data-eye="lp">إظهار</button></span></label>
+<div class="er" id="lerr" role="alert"></div>
+<div class="row"><button class="lnk" data-go="forgot">هل نسيت كلمة المرور؟</button></div>
+<button class="btn p" id="lb">تسجيل الدخول</button>
+<div class="or">ليس لديك حساب؟</div>
+<button class="btn s" data-go="reg">إنشاء حساب جديد</button>
+</section>
+
+<!-- إنشاء حساب -->
+<section id="reg" class="w" hidden>
+<h2>إنشاء حساب جديد</h2>
+<button class="btn g" data-google><b style="color:#4285F4;font:800 22px Arial">G</b>التسجيل عبر Google</button>
+<div class="or">أو</div>
+<label>الاسم<input id="rn" placeholder="اسمك الظاهر للآخرين" autocomplete="name"></label>
+<label>البريد الإلكتروني<input id="re" type="email" placeholder="name@example.com" autocomplete="email"></label>
+<label>كلمة المرور<span class="i"><input id="rp" type="password" placeholder="6 أحرف على الأقل" autocomplete="new-password"><button type="button" class="eye" data-eye="rp">إظهار</button></span></label>
+<div class="er" id="rerr" role="alert"></div>
+<button class="btn p" id="rb">إنشاء الحساب</button>
+<button class="lnk" data-go="login">لديّ حساب بالفعل</button>
+</section>
+
+<!-- نسيت كلمة المرور -->
+<section id="forgot" class="w" hidden>
+<h2>استعادة كلمة المرور</h2>
+<p class="sub">أدخل بريدك وسنرسل لك رابط إعادة التعيين</p>
+<label>البريد الإلكتروني<input id="fe" type="email" placeholder="name@example.com" autocomplete="email"></label>
+<div class="er" id="ferr" role="alert"></div>
+<button class="btn p" id="fb">إرسال الرابط</button>
+<button class="lnk" data-go="login">الرجوع لتسجيل الدخول</button>
+</section>
+
+<!-- نجاح -->
+<section id="done" class="w" hidden>
+<div class="ok" id="dm"></div>
+<button class="btn s" data-go="login">رجوع</button>
+</section>
+</main>
+<script>
+const $=id=>document.getElementById(id),ok=e=>/^\S+@\S+\.\S+$/.test(e);
+const views=["login","reg","forgot","done"];
+function go(v){views.forEach(x=>$(x).hidden=x!==v);document.querySelectorAll(".er").forEach(e=>e.textContent="");document.querySelectorAll("input").forEach(i=>i.classList.remove("bad"))}
+function bad(errId,inputs,msg){$(errId).textContent=msg;inputs.forEach(i=>$(i).classList.add("bad"));$(inputs[0]).focus()}
+function done(msg){$("dm").textContent=msg;go("done")}
+function fake(btn,text,cb){const t=btn.textContent;btn.disabled=true;btn.textContent=text;setTimeout(()=>{btn.disabled=false;btn.textContent=t;cb()},1200)}
+document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>go(b.dataset.go));
+document.querySelectorAll("[data-eye]").forEach(b=>b.onclick=()=>{const i=$(b.dataset.eye),s=i.type==="password";i.type=s?"text":"password";b.textContent=s?"إخفاء":"إظهار"});
+document.querySelectorAll("[data-google]").forEach(b=>b.onclick=()=>{const h=b.innerHTML;b.disabled=true;b.textContent="جاري الاتصال بـ Google…";setTimeout(()=>{b.disabled=false;b.innerHTML=h;done("✓ تم تسجيل الدخول عبر Google (نسخة تجريبية)")},1300)});
+$("lb").onclick=()=>{go("login");const e=$("le").value.trim(),p=$("lp").value;
+  if(!ok(e))return bad("lerr",["le"],"أدخل بريداً إلكترونياً صحيحاً");
+  if(p.length<6)return bad("lerr",["lp"],"كلمة المرور 6 أحرف على الأقل");
+  fake($("lb"),"جاري الدخول…",()=>done("✓ أهلاً بك! تم تسجيل الدخول (نسخة تجريبية)"))};
+$("rb").onclick=()=>{const n=$("rn").value.trim(),e=$("re").value.trim(),p=$("rp").value;
+  $("rerr").textContent="";["rn","re","rp"].forEach(i=>$(i).classList.remove("bad"));
+  if(n.length<2)return bad("rerr",["rn"],"أدخل اسمك");
+  if(!ok(e))return bad("rerr",["re"],"أدخل بريداً إلكترونياً صحيحاً");
+  if(p.length<6)return bad("rerr",["rp"],"كلمة المرور 6 أحرف على الأقل");
+  fake($("rb"),"جاري الإنشاء…",()=>done("✓ تم إنشاء حسابك يا "+n+" (نسخة تجريبية)"))};
+$("fb").onclick=()=>{const e=$("fe").value.trim();$("ferr").textContent="";$("fe").classList.remove("bad");
+  if(!ok(e))return bad("ferr",["fe"],"أدخل بريداً إلكترونياً صحيحاً");
+  fake($("fb"),"جاري الإرسال…",()=>done("✓ أرسلنا رابط إعادة التعيين إلى "+e+" (نسخة تجريبية)"))};
+document.querySelectorAll("input").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter"){const s=i.closest("section");s.querySelector(".btn.p").click()}}));
+$("th").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg2").trim()==="#07110d";r.dataset.theme=d?"light":"dark"};
+</script>
+</body>
+</html>
