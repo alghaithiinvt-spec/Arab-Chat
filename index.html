@@ -720,7 +720,42 @@ async function AUTH(start){
   if(session&&!/type=recovery/.test(location.hash))enter(session.user);
   A("auth").querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>show(b.dataset.av));
   A("auth").querySelectorAll("[data-ae]").forEach(b=>b.onclick=()=>{const i=A(b.dataset.ae),s=i.type==="password";i.type=s?"text":"password";b.textContent=s?"إخفاء":"إظهار"});
-  A("auth").querySelectorAll("[data-ag]").forEach(b=>b.onclick=()=>busy(b,"جاري التحويل إلى Google…",async()=>{const {error}=await sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});if(error)err(A("al").hidden?"aRerr":"aLerr",null,ar(error.message))}));
+  
+  A("auth").querySelectorAll("[data-ag]").forEach(b =>
+    b.onclick = () => busy(b, "جاري التحويل إلى Google…", async () => {
+      const native = !!(
+        window.Capacitor &&
+        window.Capacitor.isNativePlatform &&
+        window.Capacitor.isNativePlatform()
+      );
+
+      const { data, error } = await sb.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: native
+            ? "com.arabchat.app://login-callback"
+            : location.origin + location.pathname,
+          skipBrowserRedirect: native
+        }
+      });
+
+      if (error) {
+        err(A("al").hidden ? "aRerr" : "aLerr", null, ar(error.message));
+        return;
+      }
+
+      if (native && data && data.url) {
+        try {
+          const Browser = window.Capacitor.Plugins.Browser;
+          if (!Browser) throw new Error("Browser plugin unavailable");
+          await Browser.open({ url: data.url });
+        } catch (e) {
+          err("aLerr", null, "تعذّر فتح المتصفح. تحقق من إعداد مكتبة Browser.");
+        }
+      }
+    })
+  );
+
   A("aLb").onclick=()=>{show("al");const e=A("aLe").value.trim().toLowerCase(),p=A("aLp").value;
     if(!okm(e))return err("aLerr","aLe","أدخل بريداً إلكترونياً صحيحاً");if(!p)return err("aLerr","aLp","أدخل كلمة المرور");
     busy(A("aLb"),"جاري الدخول…",async()=>{const {data,error}=await sb.auth.signInWithPassword({email:e,password:p});if(error)return err("aLerr",null,ar(error.message));enter(data.user)})};
