@@ -53,6 +53,27 @@ jobs:
           open(p, "w", encoding="utf-8").write(s)
           PY
 
+      - name: Configure Google login deep link
+        run: |
+          python3 - <<'PY'
+          p = "android/app/src/main/AndroidManifest.xml"
+          s = open(p, encoding="utf-8").read()
+          intent_filter = '''
+              <intent-filter>
+                  <action android:name="android.intent.action.VIEW" />
+                  <category android:name="android.intent.category.DEFAULT" />
+                  <category android:name="android.intent.category.BROWSABLE" />
+                  <data android:scheme="com.arabchat.app" android:host="login-callback" />
+              </intent-filter>
+          '''
+          if 'android:host="login-callback"' not in s:
+              s = s.replace("</activity>", intent_filter + "\n        </activity>", 1)
+          open(p, "w", encoding="utf-8").write(s)
+          PY
+
+      - name: Sync Android project
+        run: npx cap sync android
+
       - name: Sync Android project
         run: npx cap sync android
 
