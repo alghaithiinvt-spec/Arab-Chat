@@ -676,6 +676,46 @@ async function AUTH(start){
   const ps=A("aFp").parentElement,es=A("aFe").parentElement;ps.style.display="none";
   (async()=>{try{const r=await fetch(SB_CFG.url+"/auth/v1/settings",{headers:{apikey:SB_CFG.key}});if(!r.ok)return;const s=await r.json();if(s&&s.external&&s.external.google===false)A("auth").querySelectorAll("[data-ag]").forEach(b=>{const n=b.nextElementSibling;b.style.display="none";if(n&&n.classList.contains("aor"))n.style.display="none"})}catch(e){}})();
   sb.auth.onAuthStateChange(ev=>{if(ev==="PASSWORD_RECOVERY"){recovery=true;A("auth").hidden=false;show("af");es.style.display="none";ps.style.display="";A("aFb").textContent="حفظ كلمة المرور الجديدة"}});
+  
+  const cap = window.Capacitor;
+  const plugins = cap && cap.Plugins;
+
+  if (cap && cap.isNativePlatform && cap.isNativePlatform() && plugins && plugins.App) {
+    plugins.App.addListener("appUrlOpen", async ({ url }) => {
+      if (!url || !url.startsWith("com.arabchat.app://login-callback")) return;
+
+      try {
+        const u = new URL(url);
+        const params = new URLSearchParams(u.hash.replace(/^#/, ""));
+        const code = u.searchParams.get("code");
+        let result;
+
+        if (code) {
+          result = await sb.auth.exchangeCodeForSession(code);
+        } else if (params.get("access_token") && params.get("refresh_token")) {
+          result = await sb.auth.setSession({
+            access_token: params.get("access_token"),
+            refresh_token: params.get("refresh_token")
+          });
+        } else {
+          err("aLerr", null, "لم تصل بيانات جلسة Google. حاول تسجيل الدخول مجددًا.");
+          return;
+        }
+
+        if (result.error) throw result.error;
+
+        const user = result.data.user || (result.data.session && result.data.session.user);
+        if (user) enter(user);
+
+        if (plugins.Browser && plugins.Browser.close) {
+          await plugins.Browser.close();
+        }
+      } catch (e) {
+        err("aLerr", null, "تعذّر إكمال تسجيل الدخول عبر Google. حاول مرة أخرى.");
+      }
+    });
+  }
+
   const {data:{session}}=await sb.auth.getSession();
   if(session&&!/type=recovery/.test(location.hash))enter(session.user);
   A("auth").querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>show(b.dataset.av));
