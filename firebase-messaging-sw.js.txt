@@ -1,0 +1,28 @@
+// firebase-messaging-sw.js - خلفية FCM - arab-chat1
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
+
+firebase.initializeApp({
+  apiKey: "AIzaSyDDpnofgkFFsOUvhn-E6KXsYUtk59DvaU0",
+  authDomain: "arab-chat1.firebaseapp.com",
+  projectId: "arab-chat1",
+  storageBucket: "arab-chat1.firebasestorage.app",
+  messagingSenderId: "1045509495911",
+  appId: "1:1045509495911:web:5c28c7b1ba2923256dc8c2"
+});
+
+const messaging = firebase.messaging();
+
+messaging.onBackgroundMessage(payload=>{
+  console.log('[FCM BG] ', payload);
+  const title = payload.notification?.title || payload.data?.title || 'رورو - رسالة جديدة';
+  const options = {
+    body: payload.notification?.body || payload.data?.body || 'لديك رسالة جديدة',
+    icon: 'icon.png',
+    badge: 'icon.png',
+    tag: payload.data?.chatId || 'fcm-bg',
+    vibrate: [100,50,100],
+    data: {chatId: payload.data?.chatId, url: '/'}
+  };
+  self.registration.showNotification(title, options);
+});

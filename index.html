@@ -587,11 +587,13 @@ let notifPrefs=getNotifPrefs();
 
 // --- Firebase Config - ضع بيانات مشروعك هنا ---
 const FIREBASE_CONFIG = {
-  apiKey: "PUT_YOUR_API_KEY",
-  authDomain: "PUT_YOUR_AUTH_DOMAIN",
-  projectId: "PUT_YOUR_PROJECT_ID",
-  messagingSenderId: "PUT_SENDER_ID",
-  appId: "PUT_APP_ID"
+  apiKey: "AIzaSyDDpnofgkFFsOUvhn-E6KXsYUtk59DvaU0",
+  authDomain: "arab-chat1.firebaseapp.com",
+  projectId: "arab-chat1",
+  storageBucket: "arab-chat1.firebasestorage.app",
+  messagingSenderId: "1045509495911",
+  appId: "1:1045509495911:web:5c28c7b1ba2923256dc8c2",
+  measurementId: "G-8FH19N6GV6"
 };
 let firebaseApp=null, messaging=null;
 function initFirebase(){
@@ -695,7 +697,7 @@ async function registerServiceWorker(){
 async function initWebPush(){
   if(!messaging) return;
   try{
-    const token = await messaging.getToken({vapidKey: 'PUT_YOUR_VAPID_KEY', serviceWorkerRegistration: await navigator.serviceWorker.ready});
+    const token = await messaging.getToken({vapidKey: 'B_PUT_YOUR_VAPID_HERE_FROM_FIREBASE_SETTINGS', serviceWorkerRegistration: await navigator.serviceWorker.ready});
     if(token){ await savePushToken(token, 'web'); console.log('FCM token', token); }
     messaging.onMessage(payload=>{
       // رسالة وصلت والموقع مفتوح - اعرضها كإشعار واتساب

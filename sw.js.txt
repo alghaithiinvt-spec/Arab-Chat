@@ -1,0 +1,41 @@
+
+// sw.js - Service Worker للإشعارات الخارجية مثل واتساب
+self.addEventListener('install', e=> self.skipWaiting());
+self.addEventListener('activate', e=> e.waitUntil(clients.claim()));
+
+self.addEventListener('push', event=>{
+  // في حال استخدمت FCM بدون payload notification
+  let data = {};
+  try{ data = event.data ? event.data.json() : {}; }catch(e){ data = {notification:{title:event.data.text()}}; }
+  const title = data.notification?.title || data.data?.title || 'رورو - رسالة جديدة';
+  const options = {
+    body: data.notification?.body || data.data?.body || 'لديك رسالة جديدة',
+    icon: data.notification?.icon || 'icon.png',
+    badge: 'icon.png',
+    tag: data.data?.chatId || 'roro-push',
+    vibrate: [100,50,100],
+    data: {chatId: data.data?.chatId, url: data.data?.url || '/'}
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', event=>{
+  event.notification.close();
+  const chatId = event.notification.data?.chatId;
+  event.waitUntil(
+    clients.matchAll({type:'window', includeUncontrolled:true}).then(windowClients=>{
+      // لو التطبيق مفتوح، ركز عليه وابعث له chatId
+      for(let client of windowClients){
+        if('focus' in client){
+          client.focus();
+          client.postMessage({type:'NOTIF_CLICK', chatId});
+          return;
+        }
+      }
+      // وإلا افتح نافذة جديدة
+      if(clients.openWindow){
+        return clients.openWindow(event.notification.data?.url || '/');
+      }
+    })
+  );
+});
