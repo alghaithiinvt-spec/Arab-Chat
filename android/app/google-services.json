@@ -1,1 +1,29 @@
-
+{
+  "project_info": {
+    "project_number": "1045509495911",
+    "project_id": "arab-chat1",
+    "storage_bucket": "arab-chat1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045509495911:android:5db7b63452770d0f6dc8c2",
+        "android_client_info": {
+          "package_name": "com.arabchat.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuFsnaQLzbjVXqSk7RKYzAgGINH7aCQ5g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
