@@ -1,3 +1,4 @@
+
 name: Build APK
 
 on:
@@ -8,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Download project
         uses: actions/checkout@v4
@@ -34,30 +36,125 @@ jobs:
 
       - name: Create Android project if missing
         run: |
-          [ -d android ] || npx cap add android
+          if [ ! -d android ]; then
+            npx cap add android
+          fi
 
       - name: Generate app icons
         run: npx @capacitor/assets generate --android --iconBackgroundColor '#0a1c1a' --iconBackgroundColorDark '#0a1c1a'
 
-      - name: Allow camera and microphone
+      - name: Configure Firebase
         run: |
           python3 - <<'PY'
-          p = "android/app/src/main/AndroidManifest.xml"
-          s = open(p, encoding="utf-8").read()
-          add = '''    <uses-permission android:name="android.permission.CAMERA" />
-              <uses-permission android:name="android.permission.RECORD_AUDIO" />
-              <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-          '''
-          if "RECORD_AUDIO" not in s:
-              s = s.replace("</manifest>", add + "</manifest>")
-          open(p, "w", encoding="utf-8").write(s)
+          import json
+          import os
+
+          config = "google-services.json"
+
+          if not os.path.isfile(config):
+              raise SystemExit(
+                  "ERROR: google-services.json is missing from repository root"
+              )
+
+          with open(config, encoding="utf-8") as f:
+              data = json.load(f)
+
+          clients = data.get("client", [])
+          package_name = "com.arabchat.app"
+
+          matches = [
+              c for c in clients
+              if c.get("client_info", {})
+                  .get("android_client_info", {})
+                  .get("package_name") == package_name
+          ]
+
+          if not matches:
+              raise SystemExit(
+                  "ERROR: Firebase JSON does not contain package "
+                  + package_name
+              )
+
+          os.makedirs("android/app", exist_ok=True)
+          with open(config, "rb") as src:
+              with open("android/app/google-services.json", "wb") as dst:
+                  dst.write(src.read())
+
+          print("Firebase configuration copied successfully.")
+          PY
+
+      - name: Configure Google Services Gradle plugin
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path("android/build.gradle")
+          app = Path("android/app/build.gradle")
+
+          if not root.exists() or not app.exists():
+              raise SystemExit("ERROR: Expected Gradle files were not generated.")
+
+          s = root.read_text(encoding="utf-8")
+          marker = "com.google.gms:google-services"
+
+          if marker not in s:
+              pattern = r"(dependencies\s*\{)"
+              replacement = (
+                  r"\1\n"
+                  "        classpath 'com.google.gms:google-services:4.4.2'"
+              )
+              updated, count = re.subn(pattern, replacement, s, count=1)
+
+              if count != 1:
+                  raise SystemExit(
+                      "ERROR: Could not find dependencies block in android/build.gradle"
+                  )
+
+              root.write_text(updated, encoding="utf-8")
+
+          s = app.read_text(encoding="utf-8")
+          plugin = "apply plugin: 'com.google.gms.google-services'"
+
+          if plugin not in s:
+              app.write_text(
+                  s.rstrip() + "\n\n" + plugin + "\n",
+                  encoding="utf-8"
+              )
+
+          print("Google Services Gradle configuration added.")
+          PY
+
+      - name: Allow camera, microphone and notifications
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path("android/app/src/main/AndroidManifest.xml")
+          s = p.read_text(encoding="utf-8")
+
+          permissions = [
+              '    <uses-permission android:name="android.permission.CAMERA" />',
+              '    <uses-permission android:name="android.permission.RECORD_AUDIO" />',
+              '    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />',
+              '    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />'
+          ]
+
+          for item in permissions:
+              name = item.split('"')[1]
+              if name not in s:
+                  s = s.replace("</manifest>", item + "\n</manifest>")
+
+          p.write_text(s, encoding="utf-8")
           PY
 
       - name: Configure Google login deep link
         run: |
           python3 - <<'PY'
           p = "android/app/src/main/AndroidManifest.xml"
-          s = open(p, encoding="utf-8").read()
+          with open(p, encoding="utf-8") as f:
+              s = f.read()
+
           intent_filter = '''
               <intent-filter>
                   <action android:name="android.intent.action.VIEW" />
@@ -66,15 +163,16 @@ jobs:
                   <data android:scheme="com.arabchat.app" android:host="login-callback" />
               </intent-filter>
           '''
+
           if 'android:host="login-callback"' not in s:
               s = s.replace("</activity>", intent_filter + "\n        </activity>", 1)
-          open(p, "w", encoding="utf-8").write(s)
+
+          with open(p, "w", encoding="utf-8") as f:
+              f.write(s)
           PY
 
       - name: Sync Android project
         run: npx cap sync android
-
-  
 
       - name: Build APK
         run: |
