@@ -46,6 +46,10 @@ jobs:
           test -f android/build.gradle
           test -f android/app/build.gradle
           echo "Android Gradle files are ready."
+          test -f android/gradlew
+          test -f android/build.gradle
+          test -f android/app/build.gradle
+          echo "Android Gradle files are ready."
             npx cap add android
           fi
 
