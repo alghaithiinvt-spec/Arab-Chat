@@ -36,10 +36,19 @@ jobs:
 
       - name: Create Android project if missing
         run: |
-          if [ ! -d android ]; then
+          if [ ! -f android/gradlew ] || [ ! -f android/build.gradle ] || [ ! -f android/app/build.gradle ]; then
+            echo "Android Gradle files are missing."
+            if [ -d android ]; then
+              echo "Android folder exists but is incomplete."
+              exit 1
+            fi
             npx cap add android
           fi
 
+          test -f android/gradlew
+          test -f android/build.gradle
+          test -f android/app/build.gradle
+          echo "Android Gradle files are ready."
       - name: Generate app icons
         run: npx @capacitor/assets generate --android --iconBackgroundColor '#0a1c1a' --iconBackgroundColorDark '#0a1c1a'
 
