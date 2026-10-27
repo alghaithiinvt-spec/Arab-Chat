@@ -697,7 +697,7 @@ async function registerServiceWorker(){
 async function initWebPush(){
   if(!messaging) return;
   try{
-    const token = await messaging.getToken({vapidKey: 'B_PUT_YOUR_VAPID_HERE_FROM_FIREBASE_SETTINGS', serviceWorkerRegistration: await navigator.serviceWorker.ready});
+    const token = await messaging.getToken({vapidKey: 'BNDh6LR0vfFoMwGZv0phM99E1Pqp8PVJreKPTdfQiyuZxMAqpRaQ_mTCi9QLmZ9t_1DTbgFVuPIM3BL789HOB54', serviceWorkerRegistration: await navigator.serviceWorker.ready});
     if(token){ await savePushToken(token, 'web'); console.log('FCM token', token); }
     messaging.onMessage(payload=>{
       // رسالة وصلت والموقع مفتوح - اعرضها كإشعار واتساب
